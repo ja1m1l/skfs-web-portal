@@ -12,3 +12,4 @@ Add your name below to join the project:
 - atharv Gaikwad
 - Jaimil Patel
 - Sahil Pranjale
+- Kunal Dhotre
