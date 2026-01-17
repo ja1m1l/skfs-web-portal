@@ -9,3 +9,4 @@ Add your name below to join the project:
 - Pratik Pawar
 - Samruddhi Varkhade
 - Rushikesh Gayake
+- atharv Gaikwad
