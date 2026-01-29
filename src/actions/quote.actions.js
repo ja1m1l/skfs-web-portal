@@ -1,6 +1,6 @@
 "use server";
 
-import { supabase } from "@/lib/supabase/server";
+import { supabase } from "@/lib/supabase/client";
 
 export async function saveQuote(
   name, 
