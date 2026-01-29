@@ -21,14 +21,13 @@ export async function saveQuote(
         contact: contact,   
       },
     ])
-    .select()
+    .select("user_id")
     .single();
 
-  if (userError) {
-    console.error("User insert error:", userError);
-    throw new Error(userError.message);
-  }
-
+    if (userError) {
+      console.error("User insert error:", userError);
+      throw new Error(userError.message);
+    }
   // INSERT QUOTE
   const { error: quoteError } = await supabase
     .from("quotes")   
