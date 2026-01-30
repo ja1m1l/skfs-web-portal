@@ -48,6 +48,9 @@ npm install react-icons
 ```
 now hit npm run dev again
 
+```bash
+GORQ AI Package
+npm install groq-sdk
 <hr>
 
 ## extra packages to install for authentication
