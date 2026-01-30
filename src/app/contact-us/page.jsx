@@ -255,14 +255,11 @@ export default function RequestQuotePage() {
     {/* Footer */}
     <div className="mt-6 border-t pt-3 flex justify-between items-center">
       <p className="text-xs text-gray-500">
-        Note :- <br/>
-        * This is an AI generated Quotation so you have to see differences 
-        <br/>in between actual quotation and this quotation.<br/>
-        * Prices may vary after site inspection.
-      </p><br/>
+        * This is an AI-generated quotation, so there is a chance to vary main price.
+      </p>
 
       <button
-        className="text-xs bg-orange-600 text-white px-3 py-1 rounded hover:bg-orange-700"
+        className="text-xs bg-orange-600 text-white px-3 py-2 rounded-md hover:bg-orange-700"
         onClick={() => {
           const printContents =
             document.getElementById("ai-quote-card").innerHTML;
