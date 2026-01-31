@@ -107,9 +107,6 @@ export default function ServicesPage() {
 
   return (
     <div className="services-page-wrapper font-sans">
-      {/* Poppins Google Font */}
-
-
       <style>{`
         .services-page-wrapper {
           margin: 0;
@@ -320,7 +317,6 @@ export default function ServicesPage() {
            }
            .service-card img {
               height: 200px;
-              /* Ensure image is not cut off weirdly */
               object-position: center;
            }
         }
@@ -362,7 +358,15 @@ export default function ServicesPage() {
               <div className="service-footer">
                 <span className="service-price">{item.price}</span>
 
-                <Link href="/contact-us" className="service-action-btn inline-block no-underline">Get Quote</Link>
+              
+                <Link
+                  href={`/contact-us?service=${encodeURIComponent(
+                    item.title
+                  )}&features=${encodeURIComponent(item.features.join(", "))}`}
+                  className="service-action-btn inline-block no-underline"
+                >
+                  Get Quote
+                </Link>
               </div>
             </div>
           </div>
@@ -377,7 +381,10 @@ export default function ServicesPage() {
           estimated prices instantly!
         </p>
 
-        <Link href="/contact-us" className="service-white-btn inline-block no-underline">
+        <Link
+          href="/contact-us"
+          className="service-white-btn inline-block no-underline"
+        >
           Request Free Quote
         </Link>
       </div>

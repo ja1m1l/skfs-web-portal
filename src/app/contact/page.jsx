@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { MdLocationOn, MdPhone, MdEmail } from "react-icons/md";
 import { Poppins } from "next/font/google";
 
@@ -10,6 +11,59 @@ const poppins = Poppins({
 });
 
 export default function ContactPage() {
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        message: ""
+    });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
+    const [error, setError] = useState("");
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+        setError("");
+        setSubmitted(false);
+
+        try {
+            // Make sure your API file is saved at: app/api/contact/route.js
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || 'Failed to send message');
+            }
+
+            // Success state
+            setSubmitted(true);
+            setFormData({ name: "", email: "", message: "" });
+            
+            // Hide success message after 5 seconds
+            setTimeout(() => setSubmitted(false), 5000);
+
+        } catch (err) {
+            setError(err.message || 'Something went wrong. Please try again.');
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
     return (
         <section
             className={`mx-auto max-w-7xl px-6 sm:px-10 md:px-16 lg:px-24 xl:px-32 py-12 bg-white ${poppins.className}`}
@@ -86,7 +140,7 @@ export default function ContactPage() {
                             Send Us a Message
                         </h2>
 
-                        <form className="space-y-3 flex-1 flex flex-col justify-between">
+                        <form onSubmit={handleSubmit} className="space-y-3 flex-1 flex flex-col justify-between">
                             <div className="space-y-4">
                                 <div>
                                     <label className="block text-gray-600 font-medium text-lg md:text-xl mb-2">
@@ -94,8 +148,12 @@ export default function ContactPage() {
                                     </label>
                                     <input
                                         type="text"
+                                        name="name"
                                         placeholder="Enter your name"
                                         className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-sky-500 focus:outline-none"
+                                        value={formData.name}
+                                        onChange={handleInputChange}
+                                        required
                                     />
                                 </div>
 
@@ -105,8 +163,12 @@ export default function ContactPage() {
                                     </label>
                                     <input
                                         type="email"
+                                        name="email"
                                         placeholder="Enter your email"
                                         className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-sky-500 focus:outline-none"
+                                        value={formData.email}
+                                        onChange={handleInputChange}
+                                        required
                                     />
                                 </div>
 
@@ -115,19 +177,36 @@ export default function ContactPage() {
                                         Message
                                     </label>
                                     <textarea
+                                        name="message"
                                         rows="4"
                                         placeholder="Write your message here..."
                                         className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-sky-500 focus:outline-none"
+                                        value={formData.message}
+                                        onChange={handleInputChange}
+                                        required
                                     />
                                 </div>
                             </div>
 
                             <button
                                 type="submit"
-                                className="w-full bg-sky-500 text-white py-3 rounded-lg font-medium hover:bg-sky-600 transition-colors mt-2"
+                                disabled={isSubmitting}
+                                className="w-full bg-sky-500 text-white py-3 rounded-lg font-medium hover:bg-sky-600 transition-colors mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
                             >
-                                Submit
+                                {isSubmitting ? 'Sending...' : 'Submit'}
                             </button>
+
+                            {submitted && (
+                                <div className="mt-4 bg-green-50 border border-green-200 text-green-800 rounded-lg p-3">
+                                    Thank you! Your message has been sent successfully.
+                                </div>
+                            )}
+
+                            {error && (
+                                <div className="mt-4 bg-red-50 border border-red-200 text-red-800 rounded-lg p-3">
+                                    {error}
+                                </div>
+                            )}
                         </form>
                     </div>
                 </div>
