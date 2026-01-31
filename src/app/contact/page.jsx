@@ -32,8 +32,10 @@ export default function ContactPage() {
         e.preventDefault();
         setIsSubmitting(true);
         setError("");
+        setSubmitted(false);
 
         try {
+            // Make sure your API file is saved at: app/api/contact/route.js
             const response = await fetch('/api/contact', {
                 method: 'POST',
                 headers: {
@@ -42,19 +44,26 @@ export default function ContactPage() {
                 body: JSON.stringify(formData),
             });
 
-            if (response.ok) {
-                setSubmitted(true);
-                setFormData({ name: "", email: "", message: "" });
-                setTimeout(() => setSubmitted(false), 5000);
-            } else {
-                throw new Error('Failed to send message');
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || 'Failed to send message');
             }
+
+            // Success state
+            setSubmitted(true);
+            setFormData({ name: "", email: "", message: "" });
+            
+            // Hide success message after 5 seconds
+            setTimeout(() => setSubmitted(false), 5000);
+
         } catch (err) {
-            setError('Failed to send message. Please try again.');
+            setError(err.message || 'Something went wrong. Please try again.');
         } finally {
             setIsSubmitting(false);
         }
     };
+
     return (
         <section
             className={`mx-auto max-w-7xl px-6 sm:px-10 md:px-16 lg:px-24 xl:px-32 py-12 bg-white ${poppins.className}`}
