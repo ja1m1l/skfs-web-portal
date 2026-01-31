@@ -135,7 +135,7 @@ function GalleryContent() {
                             <img
                                 src={item.image}
                                 alt={item.title}
-                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                className="w-full h-full object-cover block scale-[1.1] group-hover:scale-[1.15] transition-transform duration-500"
                             />
                         </div>
 

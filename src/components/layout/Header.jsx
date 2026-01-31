@@ -154,7 +154,7 @@ export function Header() {
     }, []);
 
     return (
-        <header className="bg-[#F9F5F0] border-b border-[#E5E7EB]">
+        <header className=" sticky top-0 z-50 bg-[#F9F5F0] border-b border-[#E5E7EB]">
             {/* Main container - uses flex and justify-between for spacing */}
             <div className="container mx-auto px-4 py-4 flex items-center justify-between">
 

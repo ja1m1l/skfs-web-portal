@@ -87,6 +87,7 @@ export default function ServicesPage() {
       price: "₹8,000 - ₹45,000",
       image:
         "https://ikiru.in/cdn/shop/products/buy-study-table-wooden-side-study-table-with-drawer-or-work-desk-for-living-room-by-the-home-dekor-on-ikiru-online-store-1.jpg?v=1739197530",
+      imageStyle: { objectPosition: "top" },
     },
     {
       title: "Dining Sets",
@@ -163,13 +164,15 @@ export default function ServicesPage() {
 
         .service-card img {
           width: 100%;
+          display: block;
           height: 230px;
           object-fit: cover;
+          transform: scale(1.07); /* Fixes subpixel gap */
           transition: transform 0.4s ease;
         }
 
         .service-card:hover img {
-          transform: scale(1.05);
+          transform: scale(1.08); /* Adjusted hover scale */
         }
 
         .service-content {
@@ -335,7 +338,11 @@ export default function ServicesPage() {
       <div className="services-container">
         {data.map((item, index) => (
           <div className="service-card" key={index}>
-            <img src={item.image} alt={item.title} />
+            <img
+              src={item.image}
+              alt={item.title}
+              style={item.imageStyle || {}}
+            />
 
             <div className="service-content">
               <div className="service-title-row">

@@ -3,8 +3,8 @@
 import { supabase } from "@/lib/supabase/client";
 
 export async function saveQuote(
-  name, 
-  contact, 
+  name,
+  contact,
   furnitureType,
   roomType,
   roomSize,
@@ -14,23 +14,23 @@ export async function saveQuote(
 
   // INSERT USER
   const { data: userData, error: userError } = await supabase
-    .from("users")   
+    .from("users")
     .insert([
       {
         name: name,
-        contact: contact,   
+        contact: contact,
       },
     ])
     .select("user_id")
     .single();
 
-    if (userError) {
-      console.error("User insert error:", userError);
-      throw new Error(userError.message);
-    }
+  if (userError) {
+    console.error("User insert error:", userError);
+    throw new Error(userError.message);
+  }
   // INSERT QUOTE
   const { error: quoteError } = await supabase
-    .from("quotes")   
+    .from("quotes")
     .insert([
       {
         user_id: userData.user_id,

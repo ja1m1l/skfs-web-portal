@@ -49,7 +49,7 @@ export default function DoubleBedPage() {
                                 ))}
                             </ul>
 
-                            <Link href="/contact-us" className="block w-full py-3 bg-black text-white rounded-lg font-semibold hover:bg-gray-800 transition-colors duration-300 text-center">
+                            <Link href="/contact-us" className="block w-full py-3 bg-sky-500 text-white rounded-lg font-semibold hover:bg-sky-600 transition-colors duration-300 text-center">
                                 Get Quote
                             </Link>
                         </div>
