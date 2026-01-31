@@ -168,8 +168,23 @@ export default function RequestQuotePage() {
   <div className="flex-1">
     <AIQuoteButton
   formData={formData}
-  onQuote={(quote) => setAiQuote(quote)}
+  onQuote={(value) => {
+    if (value === "RESET_FORM") {
+      setFormData({
+        name: "",
+        contact: "",
+        furnitureType: "",
+        roomType: "",
+        roomSize: "",
+        budget: "",
+        requirements: ""
+      });
+    } else {
+      setAiQuote(value);
+    }
+  }}
 />
+
 
   </div>
 
@@ -184,8 +199,9 @@ export default function RequestQuotePage() {
       roomType: "",
       roomSize: "",
       budget: "",
-      requirements: ""
+      requirements: "",
     });
+
     setSubmitted(true);
     setTimeout(() => setSubmitted(false), 3000);
   }}
@@ -245,53 +261,7 @@ export default function RequestQuotePage() {
           <p className="text-[11px] text-gray-600 mt-5">
             Fill in the form and click <b>“Get AI Suggestions”</b> to receive personalized recommendations!
           </p>
-          {aiQuote && (
-  <div
-    id="ai-quote-card"
-    className="mt-6 bg-white border border-orange-200 rounded-xl shadow-sm p-6
-               text-sm text-gray-800 leading-relaxed font-serif"
-  >
-    {/* Header */}
-    <div className="mb-4 text-center border-b pb-3">
-      <h2 className="text-lg font-bold">Shree Krishna Furniture Store</h2>
-      <p className="text-xs text-gray-500">
-        {new Date().toLocaleString()}
-      </p>
-    </div>
-
-    {/* Quote content */}
-    <div className="whitespace-pre-wrap space-y-3">
-      {aiQuote.split("\n").map((line, i) => (
-        <p key={i} className="mb-2">
-          {line}
-        </p>
-      ))}
-    </div>
-
-    {/* Footer */}
-    <div className="mt-6 border-t pt-3 flex justify-between items-center">
-      <p className="text-xs text-gray-500">
-        * This is an AI-generated quotation, so there is a chance to vary main price.
-      </p>
-
-      <button
-        className="text-xs bg-orange-600 text-white px-3 py-2 rounded-md hover:bg-orange-700"
-        onClick={() => {
-          const printContents =
-            document.getElementById("ai-quote-card").innerHTML;
-          const originalContents = document.body.innerHTML;
-
-          document.body.innerHTML = printContents;
-          window.print();
-          document.body.innerHTML = originalContents;
-          window.location.reload();
-        }}
-      >
-        Download
-      </button>
-    </div>
-  </div>
-)}
+          
 
 
 

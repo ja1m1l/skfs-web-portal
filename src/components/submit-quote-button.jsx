@@ -1,5 +1,4 @@
 "use client";
-
 import { saveQuote } from "@/actions/quote.actions";
 
 export default function SubmitButton({ formData, onSuccess }) {
@@ -7,18 +6,17 @@ export default function SubmitButton({ formData, onSuccess }) {
     <button
       type="button"
       onClick={async () => {
-        // ✅ VALIDATION
+        // validation
         if (
           !formData.name ||
           !formData.contact ||
           !formData.furnitureType ||
           !formData.budget
         ) {
-          alert("Please fill all required fields (*)");
+          alert("Please fill required fields (*)");
           return;
         }
 
-        // ✅ submit only if valid
         await saveQuote(
           formData.name,
           formData.contact,
@@ -29,7 +27,7 @@ export default function SubmitButton({ formData, onSuccess }) {
           formData.requirements
         );
 
-        // ✅ reset form in parent
+        // ✅ tell parent to reset
         onSuccess?.();
       }}
       className="w-full flex-1 bg-orange-600 text-white rounded-md py-2 text-xs font-medium hover:bg-orange-700"
