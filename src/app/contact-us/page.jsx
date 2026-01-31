@@ -174,7 +174,23 @@ export default function RequestQuotePage() {
   </div>
 
   <div className="flex-1">
-    <SubmitButton formData={formData} />
+    <SubmitButton
+  formData={formData}
+  onSuccess={() => {
+    setFormData({
+      name: "",
+      contact: "",
+      furnitureType: "",
+      roomType: "",
+      roomSize: "",
+      budget: "",
+      requirements: ""
+    });
+    setSubmitted(true);
+    setTimeout(() => setSubmitted(false), 3000);
+  }}
+/>
+
   </div>
 </div>
 
