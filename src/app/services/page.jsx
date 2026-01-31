@@ -351,7 +351,7 @@ export default function ServicesPage() {
               <div className="service-footer">
                 <span className="service-price">{item.price}</span>
 
-                {/* MODIFIED LINK: Passes service title and features to contact page */}
+              
                 <Link
                   href={`/contact-us?service=${encodeURIComponent(
                     item.title
